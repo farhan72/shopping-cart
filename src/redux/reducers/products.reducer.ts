@@ -3,7 +3,9 @@ import {
   GET_PRODUCTS_LOADING,
   GET_PRODUCTS_SUCCESS,
   GET_PRODUCTS_FAILED,
-} from "./../actions/types";
+  PRODUCT_INCREAMENT,
+  PRODUCT_DECREAMENT,
+} from "../actions/types";
 import { ProductStateTypes } from "../../models/types/products-state-types";
 
 const initialState: ProductStateTypes = {
@@ -11,6 +13,7 @@ const initialState: ProductStateTypes = {
   status: true,
   products: [],
   product: undefined,
+  quantity: 0,
 };
 
 const productsReducer = (state = initialState, action: ProductsActionTypes) => {
@@ -34,6 +37,16 @@ const productsReducer = (state = initialState, action: ProductsActionTypes) => {
         loading: false,
         products: [],
         status: false,
+      };
+    case PRODUCT_INCREAMENT:
+      return {
+        ...state,
+        quantity: state.quantity + 1,
+      };
+    case PRODUCT_DECREAMENT:
+      return {
+        ...state,
+        quantity: state.quantity - 1,
       };
     default:
       return state;

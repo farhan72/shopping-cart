@@ -1,3 +1,4 @@
+import { ProductsRequest } from "../../models/request/products-request";
 import { Dispatch } from "react";
 import { DispatchTypes } from "../../models/types/dispatch-types";
 import {
@@ -7,12 +8,16 @@ import {
 } from "./types";
 import axios from "axios";
 
-const fetchProducts = () => (dispatch: Dispatch<DispatchTypes>) => {
+const fetchProducts = (request: ProductsRequest) => (
+  dispatch: Dispatch<DispatchTypes>
+) => {
   dispatch({
     type: GET_PRODUCTS_LOADING,
   });
+  const url = new URLSearchParams("products");
+  Object.keys(request).map((key) => url.set(key, request[key]));
   axios
-    .get("products")
+    .get(url.toString().replace(/=&/, "?"))
     .then((result) => {
       dispatch({
         type: GET_PRODUCTS_SUCCESS,

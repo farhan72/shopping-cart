@@ -4,4 +4,5 @@ export interface ProductStateTypes {
   status: boolean;
   products?: Products[];
   product?: Products;
+  quantity: number;
 }
